@@ -32,15 +32,17 @@ body {
         max-width: 500px;
 
         display: grid;
-        grid-template-columns: repeat(18, auto);
+        grid-template-columns: repeat(20, auto);
         grid-gap: 1px;
 
         .pixel-container {
             background: var(--color_trs);
             aspect-ratio: 1;
             border-radius: 2px;
+            transition: .2s;
 
-            &.is-visited {
+            &.is-visited,
+            &:hover {
                 background: var(--color);
             }
         }
