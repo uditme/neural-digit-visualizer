@@ -9,9 +9,31 @@
 	</head>
 	<body>
 		<section class="main-section">
-			<h1>Neural Digit Visualizer</h1>
+			<h1 class="header-title">Neural Digit Visualizer</h1>
+			<div class="control-header">
+				<div class="control-data-collection">
+					<label
+						for="toggle-data-collection-mode"
+						class="toggle-data-collection-container"
+						id="toggle-data-collection-container"
+						title="Toggle data collection mode"
+					>
+						<input type="checkbox" id="toggle-data-collection-mode" hidden />
+					</label>
+					<input
+						type="number"
+						min="0"
+						max="9"
+						maxlength="1"
+						placeholder="The number to predict:"
+					/>
+				</div>
+			</div>
 			<div class="image-grid-container"></div>
-			<button class="clear-grid" id="clear-grid">Clear</button>
+			<div class="footer-buttons">
+				<button class="button clear-grid" id="clear-grid">Clear</button>
+				<button class="button save-example" id="save-example">Save</button>
+			</div>
 		</section>
 	</body>
 </html>

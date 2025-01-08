@@ -5,6 +5,7 @@
     --color_grd: rgba(212, 212, 212, 0.40);
     --color_trs: rgba(212, 212, 212, 0.15);
     --red_color: #FF000F;
+    --brand_color: rgb(20, 137, 78);
 }
 
 * {
@@ -27,8 +28,80 @@ body {
     justify-content: center;
     gap: .5rem;
 
+    .header-title {
+        text-align: center;
+        margin-block: 1rem;
+    }
+
+    .control-header {
+        width: 100%;
+        max-width: 500px;
+
+        .control-data-collection {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+
+            .toggle-data-collection-container {
+                cursor: pointer;
+                width: 60px;
+                height: 26px;
+                border-radius: 13px;
+                background: var(--color_trs);
+                transition: .3s ease-in-out;
+                position: relative;
+
+                &::after {
+                    position: absolute;
+                    content: "";
+                    top: 2px;
+                    left: 2px;
+                    transition: .3s ease-in-out;
+
+                    height: 22px;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
+                    background: var(--color);
+                }
+
+                &:has(input[type="checkbox"]:checked) {
+                    background: var(--brand_color);
+
+                    &::after {
+                        transform: translateX(34px);
+                    }
+                }
+            }
+
+            input[type="number"] {
+                display: none;
+
+                width: 100%;
+                border: 0;
+                outline: none;
+                padding-left: .25rem;
+                padding-block: .125rem;
+                background: var(--color_trs);
+                color: var(--color);
+                font-size: 1rem;
+
+                &::placeholder {
+                    user-select: none;
+                    color: var(--color);
+                    font-size: 1rem;
+                }
+            }
+
+            &:has(input[type="checkbox"]:checked) {
+                input[type="number"] {
+                    display: block;
+                }
+            }
+        }
+    }
+
     .image-grid-container {
-        width: calc(100% - 1rem);
+        width: 100%;
         max-width: 500px;
 
         display: grid;
@@ -44,6 +117,28 @@ body {
             &.is-visited,
             &:hover {
                 background: var(--color);
+            }
+        }
+    }
+
+    .footer-buttons {
+        width: 100%;
+        max-width: 500px;
+
+        .button {
+            background: transparent;
+            color: var(--color);
+            border: 1px solid currentColor;
+            outline: none;
+            padding: .25rem 1rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: .2s;
+
+            &:hover {
+                background: var(--color);
+                color: var(--back);
             }
         }
     }
