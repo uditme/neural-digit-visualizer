@@ -131,6 +131,14 @@ body {
             &:hover {
                 background: var(--color);
             }
+
+            &.nohover {
+                background: var(--color_trs);
+            }
+        }
+
+        &:has(.nohover) {
+            cursor: crosshair;
         }
     }
 
@@ -142,7 +150,23 @@ body {
         align-items: center;
         gap: .5rem;
 
+        .clear-pixel {
+            user-select: none;
+            background: transparent;
+            border: 0;
+            outline: none;
+            padding: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: .2s;
+
+            &.active {
+                background: var(--color_trs);
+            }
+        }
+
         .button {
+            user-select: none;
             background: transparent;
             color: var(--color);
             border: 1px solid currentColor;

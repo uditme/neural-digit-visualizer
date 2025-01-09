@@ -8,11 +8,14 @@ const imageGridContainer = document.getElementsByClassName(
 const clearGridButton = document.getElementById("clear-grid");
 const saveExampleButton = document.getElementById("save-example");
 const inputNumberToPredict = document.getElementById("number-to-predict");
+const clearPixelButton = document.getElementById("clear-pixel");
 
 //! ---- ---- ---- ---- ---- !//
 
 let pixelsContainer;
 let numberToPredict = null;
+let isLeftShiftPressed = false;
+let isClearPixelActive = false;
 const imagePixelValues = Array.from({ length: 400 }, () => 0);
 
 //! ---- ---- ---- ---- ---- !//
@@ -21,6 +24,7 @@ generateImageGrid();
 fillVisitedPixels();
 clearGridButton.addEventListener("click", clearImageGrid);
 saveExampleButton.addEventListener("click", saveNewTrainingExample);
+clearPixelButton.addEventListener("click", toggleClearPixelStatus);
 
 //! ---- ---- ---- ---- ---- !//
 
@@ -41,8 +45,6 @@ function fillVisitedPixels() {
 	pixelsContainer = document.getElementsByClassName("pixel-container");
 	if (!pixelsContainer) return;
 
-	let isLeftShiftPressed = false;
-
 	document.onkeydown = function (event) {
 		if (event.code === "ShiftLeft") {
 			isLeftShiftPressed = true;
@@ -61,6 +63,16 @@ function fillVisitedPixels() {
 				this.classList.add("is-visited");
 				imagePixelValues[i] = 1;
 			}
+
+			if (isClearPixelActive) {
+				this.classList.add("nohover");
+				this.classList.remove("is-visited");
+				imagePixelValues[i] = 0;
+			}
+		};
+
+		pixelContainer.onmouseout = function (target) {
+			this.classList.remove("nohover");
 		};
 	});
 }
@@ -74,8 +86,13 @@ function clearImageGrid() {
 		imagePixelValues[i] = 0;
 	});
 
-	numberToPredict = null;
-	inputNumberToPredict.value = null;
+	// numberToPredict = null;
+	// inputNumberToPredict.value = null;
+}
+
+function toggleClearPixelStatus() {
+	isClearPixelActive = !isClearPixelActive;
+	clearPixelButton.classList.toggle("active");
 }
 
 function saveNewTrainingExample() {
