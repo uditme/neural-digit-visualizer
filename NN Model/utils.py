@@ -29,9 +29,17 @@ dlcolors = [dlblue, dlorange, dldarkred, dlmagenta, dlpurple]
 
 
 def load_data():
-    X = np.load("data/X.npy")
-    y = np.load("data/y.npy")
+    X = np.loadtxt("../Data/X.txt", delimiter=",")
+    y = np.loadtxt("../Data/y.txt", delimiter=",")
     return X, y
+
+
+def display_digit(X):
+    fig, ax = plt.subplots(1, 1, figsize=(1, 1))
+    widgvis(fig)
+    X_reshaped = X.reshape((20, 20))
+    ax.imshow(X_reshaped, cmap="gray")
+    plt.show()
 
 
 def widgvis(fig):
@@ -208,16 +216,6 @@ def display_errors(model, X, y):
             ax[i].set_axis_off()
             fig.suptitle("Label, yhat", fontsize=12)
     return len(idxs)
-
-
-def display_digit(X):
-    """display a single digit. The input is one digit (400,)."""
-    fig, ax = plt.subplots(1, 1, figsize=(0.5, 0.5))
-    widgvis(fig)
-    X_reshaped = X.reshape((20, 20)).T
-    # Display the image
-    ax.imshow(X_reshaped, cmap="gray")
-    plt.show()
 
 
 def plot_loss_tf(history):
