@@ -87,7 +87,7 @@ function saveNewTrainingExample() {
 	const imageDataBlob = new Blob([imageData], { type: "text/plain" });
 	const imageDataLink = document.createElement("a");
 	imageDataLink.href = URL.createObjectURL(imageDataBlob);
-	imageDataLink.download = `input_${fileName}.txt`;
+	imageDataLink.download = `x__${fileName}.txt`;
 	imageDataLink.click();
 
 	const numberToPredictBlob = new Blob([numberToPredict], {
@@ -95,6 +95,6 @@ function saveNewTrainingExample() {
 	});
 	const numberToPredictLink = document.createElement("a");
 	numberToPredictLink.href = URL.createObjectURL(numberToPredictBlob);
-	numberToPredictLink.download = `output_${fileName}.txt`;
+	numberToPredictLink.download = `y__${fileName}.txt`;
 	numberToPredictLink.click();
 }
