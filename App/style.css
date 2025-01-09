@@ -1,11 +1,12 @@
 :root {
     --back: #373737;
-    --back_trs: rgba(55, 55, 55, 0.25);
     --color: #D4D4D4;
-    --color_grd: rgba(212, 212, 212, 0.40);
-    --color_trs: rgba(212, 212, 212, 0.15);
     --red_color: #FF000F;
     --brand_color: rgb(20, 137, 78);
+
+    --back_trs: rgba(55, 55, 55, 0.25);
+    --color_trs: rgba(212, 212, 212, 0.15);
+    --color_grd: rgba(212, 212, 212, 0.40);
 }
 
 * {
@@ -28,14 +29,20 @@ body {
     justify-content: center;
     gap: .5rem;
 
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 1rem);
+
     .header-title {
         text-align: center;
-        margin-block: 1rem;
     }
 
     .control-header {
         width: 100%;
         max-width: 500px;
+
+        display: flex;
+        flex-direction: column;
 
         .control-data-collection {
             display: flex;
@@ -50,6 +57,8 @@ body {
                 background: var(--color_trs);
                 transition: .3s ease-in-out;
                 position: relative;
+
+                display: block;
 
                 &::after {
                     position: absolute;
@@ -68,22 +77,25 @@ body {
                     background: var(--brand_color);
 
                     &::after {
-                        transform: translateX(34px);
+                        transform: translateX(26px);
                     }
                 }
             }
 
             input[type="number"] {
-                display: none;
-
                 width: 100%;
                 border: 0;
                 outline: none;
+                border-radius: 4px;
                 padding-left: .25rem;
                 padding-block: .125rem;
                 background: var(--color_trs);
                 color: var(--color);
                 font-size: 1rem;
+
+                opacity: 0;
+                visibility: hidden;
+                transition: .2s;
 
                 &::placeholder {
                     user-select: none;
@@ -94,7 +106,8 @@ body {
 
             &:has(input[type="checkbox"]:checked) {
                 input[type="number"] {
-                    display: block;
+                    opacity: 1;
+                    visibility: visible;
                 }
             }
         }
@@ -125,6 +138,10 @@ body {
         width: 100%;
         max-width: 500px;
 
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+
         .button {
             background: transparent;
             color: var(--color);
@@ -139,6 +156,23 @@ body {
             &:hover {
                 background: var(--color);
                 color: var(--back);
+            }
+
+            &.save-example {
+                opacity: 0;
+                visibility: hidden;
+                transition: .2s;
+            }
+        }
+    }
+
+    &:has(input[type="checkbox"]:checked) {
+        .footer-buttons {
+            .button {
+                &.save-example {
+                    opacity: 1;
+                    visibility: visible;
+                }
             }
         }
     }
