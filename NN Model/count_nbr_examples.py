@@ -11,7 +11,7 @@ def count_nbr_examples(file_path, feature):
 
 file_name = ""  # EMPTY IS DEFAULT
 file_path = f"C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intelligence\\A. AI Projects\\Neural Digit Visualizer\\Data\\y{file_name}.txt"
-feature = 4
+feature = 6
 
 count = count_nbr_examples(file_path, feature)
-print(f"{count}'s {feature} features")
+print(f"{count} training example(s) for feature {feature}")
