@@ -31,36 +31,26 @@ def plot_loss_tf(history):
     plt.show()
 
 
-def display_errors(model, X, y):
+def display_errors(model, X, y, enable=False):
     f = model.predict(X)
     yhat = np.argmax(f, axis=1)
-    doo = yhat != y[:, 0]
-    idxs = np.where(yhat != y[:, 0])[0]
-    if len(idxs) == 0:
-        print("no errors found")
-    else:
-        cnt = min(8, len(idxs))
-        fig, ax = plt.subplots(1, cnt, figsize=(5, 1.2))
-        fig.tight_layout(
-            pad=0.13, rect=[0, 0.03, 1, 0.80]  # type: ignore
-        )  # [left, bottom, right, top]
-        widgvis(fig)
+    idxs = np.where(yhat != y)[0]
+
+    if len(idxs) != 0:
+        cnt = len(idxs)
+
+        if enable:
+            fig, ax = plt.subplots(1, cnt, figsize=(cnt * 2, cnt))
+            fig.tight_layout(pad=1)
 
         for i in range(cnt):
             j = idxs[i]
-            X_reshaped = X[j].reshape((20, 20)).T
+            print(f"Predicted: {np.argmax(f[j])}, Actual: {y[j]}")
 
-            # Display the image
-            ax[i].imshow(X_reshaped, cmap="gray")
-
-            # Predict using the Neural Network
-            prediction = model.predict(X[j].reshape(1, 400))
-            prediction_p = tf.nn.softmax(prediction)
-            yhat = np.argmax(prediction_p)
-
-            # Display the label above the image
-            ax[i].set_title(f"{y[j,0]},{yhat}", fontsize=10)
-            ax[i].set_axis_off()
-            fig.suptitle("Label, yhat", fontsize=12)
+            if enable:
+                X_reshaped = X[j].reshape((20, 20))
+                ax[i].imshow(X_reshaped, cmap="gray")
+                ax[i].set_title(f"A: {y[j]}, P: {np.argmax(f[j])}", fontsize=10)
+                ax[i].set_axis_off()
 
     return len(idxs)
