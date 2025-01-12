@@ -1,3 +1,10 @@
+import nj from "https://cdn.jsdelivr.net/npm/@d4c/numjs/build/module/numjs.min.js";
+import { b1, W1 } from "./L1_weights.js";
+import { b2, W2 } from "./L2_weights.js";
+import { b3, W3 } from "./L3_weights.js";
+
+//! ---- ---- ---- ---- ---- !//
+
 const GRID_WIDTH = 20;
 const GRID_HEIGHT = 20;
 const GRID_PIXELS = GRID_WIDTH * GRID_HEIGHT;
@@ -16,7 +23,19 @@ let pixelsContainer;
 let numberToPredict = null;
 let isLeftShiftPressed = false;
 let isClearPixelActive = false;
-const imagePixelValues = Array.from({ length: 400 }, () => 0);
+
+const imagePixelValues = new Proxy(
+	Array.from({ length: 400 }, () => 0),
+	{
+		set(target, property, value) {
+			target[property] = value;
+
+			// console.log(nj.sum(target));
+
+			return true;
+		},
+	}
+);
 
 //! ---- ---- ---- ---- ---- !//
 
@@ -59,7 +78,7 @@ function fillVisitedPixels() {
 
 	Array.prototype.forEach.call(pixelsContainer, function (pixelContainer, i) {
 		pixelContainer.onmouseover = function (target) {
-			if (isLeftShiftPressed) {
+			if (isLeftShiftPressed && !isClearPixelActive) {
 				this.classList.add("is-visited");
 				imagePixelValues[i] = 1;
 			}
