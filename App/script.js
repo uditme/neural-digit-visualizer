@@ -1,21 +1,25 @@
-import nj from "https://cdn.jsdelivr.net/npm/@d4c/numjs/build/module/numjs.min.js";
-import { b1, W1 } from "./L1_weights.js";
-import { b2, W2 } from "./L2_weights.js";
-import { b3, W3 } from "./L3_weights.js";
-
-//! ---- ---- ---- ---- ---- !//
-
 const GRID_WIDTH = 20;
 const GRID_HEIGHT = 20;
 const GRID_PIXELS = GRID_WIDTH * GRID_HEIGHT;
 
+const L1_NEURONS = 25;
+const L2_NEURONS = 15;
+const L3_NEURONS = 10;
+
+//! ---- ---- ---- ---- ---- !//
+
 const imageGridContainer = document.getElementsByClassName(
 	"image-grid-container"
 )[0];
+
 const clearGridButton = document.getElementById("clear-grid");
 const saveExampleButton = document.getElementById("save-example");
 const inputNumberToPredict = document.getElementById("number-to-predict");
 const clearPixelButton = document.getElementById("clear-pixel");
+
+const firstLayer = document.getElementById("layer-1");
+const secondLayer = document.getElementById("layer-2");
+const thirdLayer = document.getElementById("layer-3");
 
 //! ---- ---- ---- ---- ---- !//
 
@@ -24,22 +28,24 @@ let numberToPredict = null;
 let isLeftShiftPressed = false;
 let isClearPixelActive = false;
 
-const imagePixelValues = new Proxy(
-	Array.from({ length: 400 }, () => 0),
-	{
-		set(target, property, value) {
-			target[property] = value;
+const imagePixelValues = new Proxy(Array(400).fill(0), {
+	set(target, property, value) {
+		target[property] = value;
 
-			// console.log(nj.sum(target));
+		modelComputations(target);
 
-			return true;
-		},
-	}
-);
+		return true;
+	},
+});
 
 //! ---- ---- ---- ---- ---- !//
 
 generateImageGrid();
+
+generateLayer(firstLayer, L1_NEURONS, "neuron-l1");
+generateLayer(secondLayer, L2_NEURONS, "neuron-l2");
+generateLayer(thirdLayer, L3_NEURONS, "neuron-l3");
+
 fillVisitedPixels();
 clearGridButton.addEventListener("click", clearImageGrid);
 saveExampleButton.addEventListener("click", saveNewTrainingExample);
@@ -80,13 +86,17 @@ function fillVisitedPixels() {
 		pixelContainer.onmouseover = function (target) {
 			if (isLeftShiftPressed && !isClearPixelActive) {
 				this.classList.add("is-visited");
-				imagePixelValues[i] = 1;
+				if (!imagePixelValues[i]) {
+					imagePixelValues[i] = 1;
+				}
 			}
 
 			if (isClearPixelActive) {
 				this.classList.add("nohover");
 				this.classList.remove("is-visited");
-				imagePixelValues[i] = 0;
+				if (imagePixelValues[i]) {
+					imagePixelValues[i] = 0;
+				}
 			}
 		};
 
@@ -102,7 +112,9 @@ function clearImageGrid() {
 
 	Array.prototype.forEach.call(pixelsContainer, function (pixelContainer, i) {
 		pixelContainer.classList.remove("is-visited");
-		imagePixelValues[i] = 0;
+		if (imagePixelValues[i]) {
+			imagePixelValues[i] = 0;
+		}
 	});
 
 	// numberToPredict = null;
@@ -133,4 +145,27 @@ function saveNewTrainingExample() {
 	numberToPredictLink.href = URL.createObjectURL(numberToPredictBlob);
 	numberToPredictLink.download = `y__${fileName}.txt`;
 	numberToPredictLink.click();
+}
+
+function generateLayer(layer, neuronsNumber, className) {
+	for (let i = 0; i < neuronsNumber; ++i) {
+		const neuronContainer = document.createElement("div");
+		neuronContainer.className = `neuron-container ${className}`;
+		layer.appendChild(neuronContainer);
+	}
+}
+
+function modelComputations(imageOfNumber) {
+	fetch("http://127.0.0.1:5000/process", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ array: imageOfNumber }),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log("Processed data from Python:", data.nbr);
+		})
+		.catch(() => console.error("Error sending data to Python!"));
 }

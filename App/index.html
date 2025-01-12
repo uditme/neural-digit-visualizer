@@ -9,43 +9,50 @@
 	</head>
 	<body>
 		<section class="main-section">
-			<h1 class="header-title">Neural Digit Visualizer</h1>
-			<div class="control-header">
-				<div class="control-data-collection">
-					<label
-						for="toggle-data-collection-mode"
-						class="toggle-data-collection-container"
-						id="toggle-data-collection-container"
-						title="Toggle data collection mode"
-					>
-						<input type="checkbox" id="toggle-data-collection-mode" hidden />
-					</label>
-					<input
-						type="number"
-						id="number-to-predict"
-						min="0"
-						max="9"
-						value="0"
-						maxlength="1"
-						oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-						placeholder="The number to predict:"
-					/>
+			<!-- <h1 class="header-title">Neural Digit Visualizer</h1> -->
+			<main>
+				<div class="grid-container">
+					<div class="control-data-collection">
+						<label
+							for="toggle-data-collection-mode"
+							class="toggle-data-collection-container"
+							id="toggle-data-collection-container"
+							title="Toggle data collection mode"
+						>
+							<input type="checkbox" id="toggle-data-collection-mode" hidden />
+						</label>
+						<input
+							type="number"
+							id="number-to-predict"
+							min="0"
+							max="9"
+							value="0"
+							maxlength="1"
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							placeholder="The number to predict:"
+						/>
+					</div>
+					<div class="image-grid-container"></div>
+					<div class="footer-buttons">
+						<button class="clear-pixel" id="clear-pixel">
+							<img
+								src="./Images/eraser.png"
+								alt="Eraser"
+								draggable="false"
+								width="24"
+								height="24"
+							/>
+						</button>
+						<button class="button clear-grid" id="clear-grid">Clear</button>
+						<button class="button save-example" id="save-example">Save</button>
+					</div>
 				</div>
-			</div>
-			<div class="image-grid-container"></div>
-			<div class="footer-buttons">
-				<button class="clear-pixel" id="clear-pixel">
-					<img
-						src="./Images/eraser.png"
-						alt="Eraser"
-						draggable="false"
-						width="24"
-						height="24"
-					/>
-				</button>
-				<button class="button clear-grid" id="clear-grid">Clear</button>
-				<button class="button save-example" id="save-example">Save</button>
-			</div>
+				<div class="layers-container">
+					<div class="layer layer-1" id="layer-1"></div>
+					<div class="layer layer-2" id="layer-2"></div>
+					<div class="layer layer-3" id="layer-3"></div>
+				</div>
+			</main>
 		</section>
 	</body>
 </html>
