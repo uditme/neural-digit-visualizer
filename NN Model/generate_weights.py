@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 
 
-def generate_weights(file_name, array, is_2d=True):
+def generate_weights(file_names, array, is_2d=True):
     if is_2d:
         m, n = array.shape
     else:
@@ -37,12 +37,14 @@ def generate_weights(file_name, array, is_2d=True):
         if i == m - 1 and is_2d:
             weights_txt += "]"
 
-    with open(file_name, "w") as file:
-        file.write(weights_txt)
+    for file_name in file_names:
+        with open(file_name, "w") as file:
+            file.write(weights_txt)
 
 
-model_path = "C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intelligence\\A. AI Projects\\Neural Digit Visualizer\\NN Model\\"
-model = tf.keras.models.load_model(f"{model_path}ndv_model_200t.keras")  # type: ignore
+model_name = "ndv_model_285t__45ep.keras"
+model_path = "C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intelligence\\A. AI Projects\\Neural Digit Visualizer\\NN Model"
+model = tf.keras.models.load_model(f"{model_path}\\{model_name}")  # type: ignore
 
 [L1, L2, L3] = model.layers
 
@@ -50,22 +52,29 @@ W1, b1 = L1.get_weights()
 W2, b2 = L2.get_weights()
 W3, b3 = L3.get_weights()
 
-file_path = "C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intelligence\\A. AI Projects\\Neural Digit Visualizer\\NN Model"
+file_path_nnm = "C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intelligence\\A. AI Projects\\Neural Digit Visualizer\\NN Model\\Weights"
+file_path_app = "C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intelligence\\A. AI Projects\\Neural Digit Visualizer\\App\\Weights"
 
 file_name = "W1.txt"
-generate_weights(f"{file_path}\\{file_name}", W1)
+generate_weights([f"{file_path_nnm}\\{file_name}", f"{file_path_app}\\{file_name}"], W1)
 
 file_name = "b1.txt"
-generate_weights(f"{file_path}\\{file_name}", b1, False)
+generate_weights(
+    [f"{file_path_nnm}\\{file_name}", f"{file_path_app}\\{file_name}"], b1, False
+)
 
 file_name = "W2.txt"
-generate_weights(f"{file_path}\\{file_name}", W2)
+generate_weights([f"{file_path_nnm}\\{file_name}", f"{file_path_app}\\{file_name}"], W2)
 
 file_name = "b2.txt"
-generate_weights(f"{file_path}\\{file_name}", b2, False)
+generate_weights(
+    [f"{file_path_nnm}\\{file_name}", f"{file_path_app}\\{file_name}"], b2, False
+)
 
 file_name = "W3.txt"
-generate_weights(f"{file_path}\\{file_name}", W3)
+generate_weights([f"{file_path_nnm}\\{file_name}", f"{file_path_app}\\{file_name}"], W3)
 
 file_name = "b3.txt"
-generate_weights(f"{file_path}\\{file_name}", b3, False)
+generate_weights(
+    [f"{file_path_nnm}\\{file_name}", f"{file_path_app}\\{file_name}"], b3, False
+)

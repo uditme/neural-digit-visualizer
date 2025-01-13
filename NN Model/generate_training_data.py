@@ -17,7 +17,7 @@ def generate_training_data(folder_path, prefix, combined_file):
             if os.path.exists(file_path):
                 with open(file_path, "r") as f:
                     cf.write(f.read() + "\n")
-                print(f"File '{file_name}' added")
+                # print(f"File '{file_name}' added")
             else:
                 print(f"File '{file_name}' does not exist")
 
