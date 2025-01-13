@@ -1,0 +1,8 @@
+. Model representation in "NN Model/Images/model-representation.png"
+. Weights in "App/Weights/*" and "NN Model/Weights/*" by running "NN Model/generate_weights.py"
+. Model notebook:
+    * 2. Dataset description
+    * 4. Model Representation
+    * Add more details I guess
+. Disable predicting if collecting data
+. Add more data
