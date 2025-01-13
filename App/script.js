@@ -2,9 +2,9 @@ const GRID_WIDTH = 20;
 const GRID_HEIGHT = 20;
 const GRID_PIXELS = GRID_WIDTH * GRID_HEIGHT;
 
-const L1_NEURONS = 25;
-const L2_NEURONS = 15;
-const L3_NEURONS = 10;
+const L1_NEURONS = 20;
+const L2_NEURONS = 16;
+const L3_NEURONS = 11;
 
 //! ---- ---- ---- ---- ---- !//
 
@@ -24,7 +24,7 @@ const thirdLayer = document.getElementById("layer-3");
 //! ---- ---- ---- ---- ---- !//
 
 let pixelsContainer;
-let numberToPredict = null;
+let numberToPredict = -1;
 let isLeftShiftPressed = false;
 let isClearPixelActive = false;
 
@@ -117,8 +117,8 @@ function clearImageGrid() {
 		}
 	});
 
-	// numberToPredict = null;
-	// inputNumberToPredict.value = null;
+	// numberToPredict = -1;
+	// inputNumberToPredict.value = -1;
 }
 
 function toggleClearPixelStatus() {

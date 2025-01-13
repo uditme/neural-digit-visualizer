@@ -39,21 +39,21 @@ def softmax(z):
 
 
 def model_computations(b1, W1, b2, W2, b3, W3, image_of_nbr):
-    L1_activations = np.zeros((25,))
-    L2_activations = np.zeros((15,))
-    L3_activations = np.zeros((10,))
+    L1_activations = np.zeros((20,))
+    L2_activations = np.zeros((16,))
+    L3_activations = np.zeros((11,))
 
-    for i in range(25):
+    for i in range(20):
         w1_i = W1[:, i]
         z1_i = np.dot(image_of_nbr, w1_i) + b1[i]
         L1_activations[i] = np.maximum(0, z1_i)
 
-    for i in range(15):
+    for i in range(16):
         w2_i = W2[:, i]
         z2_i = np.dot(L1_activations, w2_i) + b2[i]
         L2_activations[i] = np.maximum(0, z2_i)
 
-    for i in range(10):
+    for i in range(11):
         w3_i = W3[:, i]
         z3_i = np.dot(L2_activations, w3_i) + b3[i]
         L3_activations[i] = z3_i
