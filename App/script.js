@@ -11,6 +11,7 @@ const L3_NEURONS = 11;
 const imageGridContainer = document.getElementsByClassName(
 	"image-grid-container"
 )[0];
+const neuronsConnections = document.getElementById("neurons-connections");
 
 const clearGridButton = document.getElementById("clear-grid");
 const saveExampleButton = document.getElementById("save-example");
@@ -45,6 +46,11 @@ generateImageGrid();
 generateLayer(firstLayer, L1_NEURONS, "neuron-l1");
 generateLayer(secondLayer, L2_NEURONS, "neuron-l2");
 generateLayer(thirdLayer, L3_NEURONS, "neuron-l3");
+
+generateNeuronsConnections(
+	"neuron-container neuron-l1",
+	"neuron-container neuron-l2"
+);
 
 fillVisitedPixels();
 clearGridButton.addEventListener("click", clearImageGrid);
@@ -168,4 +174,56 @@ function modelComputations(imageOfNumber) {
 			console.log("Processed data from Python:", data.nbr);
 		})
 		.catch(() => console.error("Error sending data to Python!"));
+}
+
+function generateNeuronsConnections(startLayerClassName, endLayerClassName) {
+	const startLayerNeurons =
+		document.getElementsByClassName(startLayerClassName);
+	if (!startLayerNeurons) return;
+
+	const endLayerNeurons = document.getElementsByClassName(endLayerClassName);
+	if (!endLayerNeurons) return;
+
+	let neuronsConnection = document.createElement("div");
+	neuronsConnection.className = "neurons-connection";
+
+	let startLayerNeuron = startLayerNeurons[1];
+	let endLayerNeuron = endLayerNeurons[10];
+
+	let startX = startLayerNeuron.offsetLeft + startLayerNeuron.offsetWidth;
+	let startY = startLayerNeuron.offsetTop + startLayerNeuron.offsetHeight / 2;
+
+	let endX = endLayerNeuron.offsetLeft;
+	let endY = endLayerNeuron.offsetTop + endLayerNeuron.offsetHeight / 2;
+
+	neuronsConnection.style.left = `${startX}px`;
+	neuronsConnection.style.top = `${startY}px`;
+	neuronsConnection.style.width = `${endX - startX}px`;
+	neuronsConnection.style.height = `${endY - startY}px`;
+
+	neuronsConnections.appendChild(neuronsConnection);
+
+	// Array.prototype.forEach.call(startLayerNeurons, function (_, i) {
+	// 	Array.prototype.forEach.call(endLayerNeurons, function (_, j) {
+	// 		let neuronsConnection = document.createElement("div");
+	// 		neuronsConnection.className = "neurons-connection";
+
+	// 		let startLayerNeuron = startLayerNeurons[0];
+	// 		let endLayerNeuron = endLayerNeurons[0];
+
+	// 		let startX = startLayerNeuron.offsetRight; //+ startLayerNeuron.offsetWidth / 2;
+	// 		let startY =
+	// 			startLayerNeuron.offsetTop + startLayerNeuron.offsetHeight / 2;
+
+	// 		let endX = endLayerNeuron.offsetLeft; // + endLayerNeuron.offsetWidth / 2;
+	// 		let endY = endLayerNeuron.offsetTop + endLayerNeuron.offsetHeight / 2;
+
+	// 		neuronsConnection.style.left = `${startX}px`;
+	// 		neuronsConnection.style.top = `${startY}px`;
+	// 		neuronsConnection.style.width = `${endX - startX}px`;
+	// 		neuronsConnection.style.height = `${endY - startY}px`;
+
+	// 		neuronsConnections.appendChild(neuronsConnection);
+	// 	});
+	// });
 }

@@ -215,9 +215,19 @@ body {
                     height: 32px;
                     width: 50px;
                     border: 1px solid var(--color);
+                    background: var(--back);
                     border-radius: 4px;
                 }
             }
+        }
+
+        .neurons-connection {
+            position: absolute;
+
+            z-index: -1;
+            background: var(--red_color);
+
+            background: linear-gradient(-135deg, transparent calc(50% - 1px), var(--color) calc(50% + 1px), transparent calc(50% + 1px));
         }
     }
 
