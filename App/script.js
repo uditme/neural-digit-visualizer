@@ -6,6 +6,19 @@ const L1_NEURONS = 20;
 const L2_NEURONS = 16;
 const L3_NEURONS = 11;
 
+const colors = [
+	"#FF5733",
+	"#33FF57",
+	"#5733FF",
+	"#FF33A3",
+	"#33A3FF",
+	"#A3FF33",
+	"#FF3333",
+	"#33FFAA",
+	"#AA33FF",
+	"#FFD733",
+];
+
 //! ---- ---- ---- ---- ---- !//
 
 const imageGridContainer = document.getElementsByClassName(
@@ -48,10 +61,15 @@ generateLayer(firstLayer, L1_NEURONS, "neuron-l1");
 generateLayer(secondLayer, L2_NEURONS, "neuron-l2");
 generateLayer(thirdLayer, L3_NEURONS, "neuron-l3");
 
-// generateNeuronsConnections(
-// 	"neuron-container neuron-l1",
-// 	"neuron-container neuron-l2"
-// );
+generateNeuronsConnections(
+	"neuron-container neuron-l1",
+	"neuron-container neuron-l2"
+);
+
+generateNeuronsConnections(
+	"neuron-container neuron-l2",
+	"neuron-container neuron-l3"
+);
 
 modelComputations(imagePixelValues);
 fillVisitedPixels();
@@ -62,6 +80,19 @@ clearGridButton.addEventListener("click", function () {
 });
 saveExampleButton.addEventListener("click", saveNewTrainingExample);
 clearPixelButton.addEventListener("click", toggleClearPixelStatus);
+window.addEventListener("resize", function () {
+	neuronsConnections.innerHTML = "";
+
+	generateNeuronsConnections(
+		"neuron-container neuron-l1",
+		"neuron-container neuron-l2"
+	);
+
+	generateNeuronsConnections(
+		"neuron-container neuron-l2",
+		"neuron-container neuron-l3"
+	);
+});
 
 //! ---- ---- ---- ---- ---- !//
 
@@ -191,57 +222,58 @@ function modelComputations(imageOfNumber) {
 		.catch((err) => console.error(`Error sending data to Python! ${err}`));
 }
 
-// function generateNeuronsConnections(startLayerClassName, endLayerClassName) {
-// 	const startLayerNeurons =
-// 		document.getElementsByClassName(startLayerClassName);
-// 	if (!startLayerNeurons) return;
+function generateNeuronsConnections(startLayerClassName, endLayerClassName) {
+	const startLayerNeurons =
+		document.getElementsByClassName(startLayerClassName);
+	if (!startLayerNeurons || startLayerNeurons.length === 0) return;
 
-// 	const endLayerNeurons = document.getElementsByClassName(endLayerClassName);
-// 	if (!endLayerNeurons) return;
+	const endLayerNeurons = document.getElementsByClassName(endLayerClassName);
+	if (!endLayerNeurons || endLayerNeurons.length === 0) return;
 
-// 	let neuronsConnection = document.createElement("div");
-// 	neuronsConnection.className = "neurons-connection";
+	Array.from(startLayerNeurons).forEach(function (startLayerNeuron, i) {
+		Array.from(endLayerNeurons).forEach(function (endLayerNeuron, j) {
+			let startX = startLayerNeuron.offsetLeft + startLayerNeuron.offsetWidth;
+			let startY =
+				startLayerNeuron.offsetTop + startLayerNeuron.offsetHeight / 2;
 
-// 	let startLayerNeuron = startLayerNeurons[1];
-// 	let endLayerNeuron = endLayerNeurons[10];
+			let endX = endLayerNeuron.offsetLeft;
+			let endY = endLayerNeuron.offsetTop + endLayerNeuron.offsetHeight / 2;
 
-// 	let startX = startLayerNeuron.offsetLeft + startLayerNeuron.offsetWidth;
-// 	let startY = startLayerNeuron.offsetTop + startLayerNeuron.offsetHeight / 2;
+			if (j % 2) {
+				const svg = createConnectionSVG(
+					"http://www.w3.org/2000/svg",
+					startX,
+					startY,
+					endX,
+					endY,
+					i % colors.length
+				);
+				neuronsConnections.appendChild(svg);
+			}
+		});
+	});
+}
 
-// 	let endX = endLayerNeuron.offsetLeft;
-// 	let endY = endLayerNeuron.offsetTop + endLayerNeuron.offsetHeight / 2;
+function createConnectionSVG(xmlns, startX, startY, endX, endY, colorIndex) {
+	const svg = document.createElementNS(xmlns, "svg");
+	svg.setAttribute("width", "100%");
+	svg.setAttribute("height", "100%");
+	svg.style.position = "absolute";
+	svg.style.top = "0";
+	svg.style.left = "0";
+	svg.style.zIndex = "-1";
 
-// 	neuronsConnection.style.left = `${startX}px`;
-// 	neuronsConnection.style.top = `${startY}px`;
-// 	neuronsConnection.style.width = `${endX - startX}px`;
-// 	neuronsConnection.style.height = `${endY - startY}px`;
+	const line = document.createElementNS(xmlns, "line");
+	line.setAttribute("x1", startX);
+	line.setAttribute("y1", startY);
+	line.setAttribute("x2", endX);
+	line.setAttribute("y2", endY);
+	line.setAttribute("style", `stroke:${colors[colorIndex]};stroke-width:2`);
 
-// 	neuronsConnections.appendChild(neuronsConnection);
+	svg.appendChild(line);
 
-// 	// Array.prototype.forEach.call(startLayerNeurons, function (_, i) {
-// 	// 	Array.prototype.forEach.call(endLayerNeurons, function (_, j) {
-// 	// 		let neuronsConnection = document.createElement("div");
-// 	// 		neuronsConnection.className = "neurons-connection";
-
-// 	// 		let startLayerNeuron = startLayerNeurons[0];
-// 	// 		let endLayerNeuron = endLayerNeurons[0];
-
-// 	// 		let startX = startLayerNeuron.offsetRight; //+ startLayerNeuron.offsetWidth / 2;
-// 	// 		let startY =
-// 	// 			startLayerNeuron.offsetTop + startLayerNeuron.offsetHeight / 2;
-
-// 	// 		let endX = endLayerNeuron.offsetLeft; // + endLayerNeuron.offsetWidth / 2;
-// 	// 		let endY = endLayerNeuron.offsetTop + endLayerNeuron.offsetHeight / 2;
-
-// 	// 		neuronsConnection.style.left = `${startX}px`;
-// 	// 		neuronsConnection.style.top = `${startY}px`;
-// 	// 		neuronsConnection.style.width = `${endX - startX}px`;
-// 	// 		neuronsConnection.style.height = `${endY - startY}px`;
-
-// 	// 		neuronsConnections.appendChild(neuronsConnection);
-// 	// 	});
-// 	// });
-// }
+	return svg;
+}
 
 function showActivations(activations, className, coeff = 1) {
 	const activationLevels = document.getElementsByClassName(

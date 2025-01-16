@@ -207,7 +207,7 @@ body {
 
             #layer-1,
             #layer-2 {
-                margin-right: 3.5rem;
+                margin-right: 5.5rem;
             }
 
             .layer {
@@ -253,15 +253,6 @@ body {
                     }
                 }
             }
-        }
-
-        .neurons-connection {
-            position: absolute;
-
-            z-index: -1;
-            background: var(--red_color);
-
-            background: linear-gradient(-135deg, transparent calc(50% - 1px), var(--color) calc(50% + 1px), transparent calc(50% + 1px));
         }
     }
 

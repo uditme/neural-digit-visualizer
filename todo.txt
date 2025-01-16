@@ -7,3 +7,4 @@
 . Add more training
 . Add neuron connections
 . update label "(-1) - (10) - empty grid when saving"
+. make it responsive
