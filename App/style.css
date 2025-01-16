@@ -203,7 +203,12 @@ body {
         .layers-container {
             display: flex;
             align-items: center;
-            gap: 4rem;
+            gap: .5rem;
+
+            #layer-1,
+            #layer-2 {
+                margin-right: 3.5rem;
+            }
 
             .layer {
                 display: flex;
@@ -229,6 +234,22 @@ body {
 
                         background: var(--color);
                         border-radius: 1px;
+                    }
+                }
+
+                &.labels {
+                    .label {
+                        height: 32px;
+                        width: 50px;
+                        border: 1px solid transparent;
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        font-size: 1.75rem;
+                        font-weight: 600;
+                        font-family: "Homemade Apple", serif;
                     }
                 }
             }

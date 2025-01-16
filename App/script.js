@@ -54,9 +54,12 @@ generateLayer(thirdLayer, L3_NEURONS, "neuron-l3");
 // );
 
 modelComputations(imagePixelValues);
-
 fillVisitedPixels();
-clearGridButton.addEventListener("click", clearImageGrid);
+
+clearGridButton.addEventListener("click", function () {
+	clearImageGrid();
+	modelComputations(Array(400).fill(0));
+});
 saveExampleButton.addEventListener("click", saveNewTrainingExample);
 clearPixelButton.addEventListener("click", toggleClearPixelStatus);
 
@@ -77,7 +80,7 @@ function generateImageGrid() {
 
 function fillVisitedPixels() {
 	pixelsContainer = document.getElementsByClassName("pixel-container");
-	if (!pixelsContainer) return;
+	if (!pixelsContainer || pixelsContainer.length === 0) return;
 
 	document.onkeydown = function (event) {
 		if (event.code === "ShiftLeft") {
@@ -91,7 +94,7 @@ function fillVisitedPixels() {
 		}
 	};
 
-	Array.prototype.forEach.call(pixelsContainer, function (pixelContainer, i) {
+	Array.from(pixelsContainer).forEach(function (pixelContainer, i) {
 		pixelContainer.onmouseover = function (target) {
 			if (isLeftShiftPressed && !isClearPixelActive) {
 				this.classList.add("is-visited");
@@ -117,17 +120,17 @@ function fillVisitedPixels() {
 
 function clearImageGrid() {
 	pixelsContainer = document.getElementsByClassName("pixel-container");
-	if (!pixelsContainer) return;
+	if (!pixelsContainer || pixelsContainer.length === 0) return;
 
-	Array.prototype.forEach.call(pixelsContainer, function (pixelContainer, i) {
+	Array.from(pixelsContainer).forEach(function (pixelContainer, i) {
 		pixelContainer.classList.remove("is-visited");
 		if (imagePixelValues[i]) {
 			imagePixelValues[i] = 0;
 		}
 	});
 
-	// numberToPredict = -1;
-	// inputNumberToPredict.value = -1;
+	numberToPredict = -1;
+	inputNumberToPredict.value = -1;
 }
 
 function toggleClearPixelStatus() {
@@ -181,7 +184,7 @@ function modelComputations(imageOfNumber) {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			showActivations(data.L1_prbs, "neuron-l1");
+			showActivations(data.L1_prbs, "neuron-l1", 2);
 			showActivations(data.L2_prbs, "neuron-l2");
 			showActivations(data.L3_prbs, "neuron-l3");
 		})
@@ -251,10 +254,10 @@ function showActivations(activations, className, coeff = 1) {
 		.split(",")
 		.map((act) => parseFloat(act.trim()));
 
-	Array.from(activationLevels).forEach((activationLevel, i) => {
-		activationLevel.style.width = `${Math.max(
-			0,
-			activationsAsNumbers[i] * coeff - 6
+	Array.from(activationLevels).forEach(function (activationLevel, i) {
+		activationLevel.style.width = `${Math.min(
+			94,
+			Math.max(0, activationsAsNumbers[i] * coeff - 6)
 		)}%`;
 	});
 }

@@ -3,6 +3,14 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Homemade+Apple&family=Roboto+Slab:wght@100..900&display=swap"
+			rel="stylesheet"
+		/>
+
 		<link rel="stylesheet" href="style.css" />
 		<script src="script.js" type="module" defer></script>
 		<title>Neural Digit Visualizer</title>
@@ -50,6 +58,27 @@
 					<div class="layer layer-1" id="layer-1"></div>
 					<div class="layer layer-2" id="layer-2"></div>
 					<div class="layer layer-3" id="layer-3"></div>
+					<div class="layer labels" id="labels">
+						<div class="label">0</div>
+						<div class="label">1</div>
+						<div class="label">2</div>
+						<div class="label">3</div>
+						<div class="label">4</div>
+						<div class="label">5</div>
+						<div class="label">6</div>
+						<div class="label">7</div>
+						<div class="label">8</div>
+						<div class="label">9</div>
+						<div class="label">
+							<img
+								src="./Images/grid.png"
+								alt="Grid"
+								draggable="false"
+								width="24"
+								height="24"
+							/>
+						</div>
+					</div>
 				</div>
 				<div id="neurons-connections">
 					<!-- <div class="neurons-connection"></div> -->
