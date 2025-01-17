@@ -10,6 +10,12 @@
 
 </div>
 
+<div align="center">
+
+![Model Representation](./App/Images/model-representation.png)
+
+</div>
+
 ## Features
 
 - **Interactive Grid**: Draw digits on a 20x20 pixel grid directly in the browser.
