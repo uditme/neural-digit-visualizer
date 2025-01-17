@@ -19,31 +19,41 @@
 
 ## How This Is Built
 
-1. Data Collection via Webpage
+1. Data Collection via Webpage:
 
-- Created a webpage with a grid where users could draw digits and enter their corresponding labels.
-- Used this functionality to save the drawn digits and their labels as training examples.
-- Repeated this process multiple times to collect sufficient training data for all digits.
+   - Created a webpage with a grid where users could draw digits and enter their corresponding labels.
+   - Used this functionality to save the drawn digits and their labels as training examples.
+   - Repeated this process multiple times to collect sufficient training data for all digits.
 
-2. Model Development in Jupyter Notebook
+     > Check these files: [index.html](./App/index.html), [script.js](./App/script.js)
 
-- Built a Jupyter Notebook to define the neural network structure.
-- Trained the model using the collected data and evaluated its accuracy to ensure proper functionality.
+2. Model Development in Jupyter Notebook:
 
-3. Model Replication with NumPy
+   - Built a Jupyter Notebook to define the neural network structure.
+   - Trained the model using the collected data and evaluated its accuracy to ensure proper functionality.
 
-- Saved the trained model's weights into separate `.txt` files.
-- Reproduced the model's calculations using NumPy to predict new labels.
+     > Check this file: [neural-digit-visualizer.ipynb](./NN%20Model/neural-digit-visualizer.ipynb)
 
-4. Flask Server for Activation Computation
+3. Model Replication with NumPy:
 
-- Developed a Flask server to process input images.
-- The server computes all neuron activations in the neural network and sends the results back to the client.
+   - Saved the trained model's weights into separate `.txt` files.
+   - Reproduced the model's calculations using NumPy to predict new labels.
 
-5. Visualizing Neural Network Activations
+     > Check this file: [model_computations.py](./NN%20Model/model_computations.py)
 
-- Enhanced the initial webpage by adding layers and neurons to visualize activations.
-- Used the computed activations from the Flask server to dynamically display how the network processes the input.
+4. Flask Server for Activation Computation:
+
+   - Developed a Flask server to process input images.
+   - The server computes all neuron activations in the neural network and sends the results back to the client.
+
+     > Check these files: [app.py](./App/app.py), [utils.py](./App/utils.py)
+
+5. Visualizing Neural Network Activations:
+
+   - Enhanced the initial webpage by adding layers and neurons to visualize activations.
+   - Used the computed activations from the Flask server to dynamically display how the network processes the input.
+
+     > Check these files: [index.html](./App/index.html), [script.js](./App/script.js)
 
 ## How to Run
 
