@@ -191,9 +191,12 @@ function saveNewTrainingExample() {
 	imageDataLink.download = `x__${fileName}.txt`;
 	imageDataLink.click();
 
-	const numberToPredictBlob = new Blob([numberToPredict], {
-		type: "text/plain",
-	});
+	const numberToPredictBlob = new Blob(
+		[numberToPredict === -1 ? 10 : numberToPredict],
+		{
+			type: "text/plain",
+		}
+	);
 	const numberToPredictLink = document.createElement("a");
 	numberToPredictLink.href = URL.createObjectURL(numberToPredictBlob);
 	numberToPredictLink.download = `y__${fileName}.txt`;
