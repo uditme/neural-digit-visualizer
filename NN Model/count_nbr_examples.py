@@ -16,6 +16,9 @@ file_path = f"C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intell
 feature = -1
 
 for feature in [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+    if feature == -1:
+        feature = 10
+
     count, total = count_nbr_examples(file_path, feature)
     print(
         f"{count:2.0f} training example(s) for feature {feature:2.0f}, total features is {total}"
