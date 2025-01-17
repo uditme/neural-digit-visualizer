@@ -7,16 +7,26 @@ const L2_NEURONS = 16;
 const L3_NEURONS = 11;
 
 const colors = [
-	"#FF5733",
-	"#33FF57",
-	"#5733FF",
-	"#FF33A3",
-	"#33A3FF",
-	"#A3FF33",
-	"#FF3333",
-	"#33FFAA",
-	"#AA33FF",
-	"#FFD733",
+	"#d4d4d480",
+	"#FF573380",
+	"#33FF5780",
+	"#5733FF80",
+	"#FF33A380",
+	"#33A3FF80",
+	"#A3FF3380",
+	"#FF333380",
+	"#33FFAA80",
+	"#AA33FF80",
+	"#FFD73380",
+	"#d4d4d480",
+	"#FF573380",
+	"#33FF5780",
+	"#5733FF80",
+	"#FF33A380",
+	"#33A3FF80",
+	"#A3FF3380",
+	"#FF333380",
+	"#33FFAA80",
 ];
 
 //! ---- ---- ---- ---- ---- !//
@@ -239,14 +249,14 @@ function generateNeuronsConnections(startLayerClassName, endLayerClassName) {
 			let endX = endLayerNeuron.offsetLeft;
 			let endY = endLayerNeuron.offsetTop + endLayerNeuron.offsetHeight / 2;
 
-			if (j % 2) {
+			if ([0, 5, 10, 15].includes(j)) {
 				const svg = createConnectionSVG(
 					"http://www.w3.org/2000/svg",
 					startX,
 					startY,
 					endX,
 					endY,
-					i % colors.length
+					j
 				);
 				neuronsConnections.appendChild(svg);
 			}
