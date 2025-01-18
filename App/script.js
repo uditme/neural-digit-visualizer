@@ -228,8 +228,8 @@ function modelComputations(imageOfNumber) {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			showActivations(data.L1_prbs, "neuron-l1", 2);
-			showActivations(data.L2_prbs, "neuron-l2");
+			showActivations(data.L1_prbs, "neuron-l1", 3);
+			showActivations(data.L2_prbs, "neuron-l2", 1.5);
 			showActivations(data.L3_prbs, "neuron-l3");
 		})
 		.catch((err) => console.error(`Error sending data to Python! ${err}`));
@@ -259,7 +259,7 @@ function generateNeuronsConnections(startLayerClassName, endLayerClassName) {
 					startY,
 					endX,
 					endY,
-					j
+					0
 				);
 				neuronsConnections.appendChild(svg);
 			}
@@ -274,7 +274,7 @@ function createConnectionSVG(xmlns, startX, startY, endX, endY, colorIndex) {
 	svg.style.position = "absolute";
 	svg.style.top = "0";
 	svg.style.left = "0";
-	svg.style.zIndex = "-1";
+	// svg.style.zIndex = "-1";
 
 	const line = document.createElementNS(xmlns, "line");
 	line.setAttribute("x1", startX);
