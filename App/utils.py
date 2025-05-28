@@ -1,7 +1,9 @@
 import numpy as np
 import json
 
-weights_path = "C:\\Users\\Choaib ELMADI\\Documents\\D.I.F.Y\\4. Artificial Intelligence\\A. AI Projects\\Neural Digit Visualizer\\App\\Weights"
+import os
+weights_path = os.path.join(os.path.dirname(__file__), "Weights")
+
 
 
 def load_weights():
